@@ -1,28 +1,32 @@
+
+import time
+import random
+
 class TicTacToe:
     def player_name(self):
-        player1 = input("Enter the name of player 1 :")
-        player2 = input("Enter the name of player 2 :")
+        player1 = (input("Enter the name of player 1 :")).strip()
+        player2 = (input("Enter the name of player 2 :")).strip()
+        self.player1 = player1
+        self.player2 = player2
         return player1,player2
     
     def choose_player(self):
-        import random
         idx = random.randint(0,1)
         player = self.player_name()
         return player[idx]
     
     def coordinates(self):
         while True:
-            coor = input("Enter your coordinates (like 0,0): ")
+            coor = input("Enter your coordinates : ")
             coor = coor.split(",")
             x = int(coor[0])
             y = int(coor[1])
-            if x<3 and y<3:
+            if 0<=x<3 and 0<=y<3:
                 break
             print("coordinates out of range")
         return x,y  
     
     def print_grid(self):
-        import time
         print("              WELCOME TO        ")
         time.sleep(0.8)
         print("         TIC")
@@ -40,12 +44,22 @@ class TicTacToe:
                     (2,0) | (2,1) | (2,2)
 
 """)
+        print("Enter you coordintes without brackets like 0,0")
         l=[[" "," "," "],[" "," "," "],[" "," "," "]]
         first_person = self.choose_player()
-        for i in range(9):
-            if i%2 == 0:
+        if first_person == self.player1:
+            second_person = self.player2
+        else:
+            second_person = self.player1
+        for i in range(10):
+
+            if i==9:
+                print(" draw ")
+                break
+
+            elif i%2 == 0:
                 time.sleep(0.5)
-                print(f"it's your turn {first_person}")
+                print(f"it's your turn {first_person} and your sign is 'X' ")
                 while True:
                     coor = self.coordinates()
                     if l[coor[0]][coor[1]] ==" ":
@@ -67,7 +81,7 @@ class TicTacToe:
             
             else:
                 time.sleep(0.5)
-                print("2nd player's turn")
+                print(f"It's your turn {second_person} and your sign is  'O' ")
                 while True:
                     coor = self.coordinates()
                     if l[coor[0]][coor[1]] ==" ":
@@ -86,8 +100,10 @@ class TicTacToe:
                     break
                 else:
                     continue
+
+
         
-        print("Draw")            
+           
 ttt = TicTacToe()
 ttt.print_grid()
 
